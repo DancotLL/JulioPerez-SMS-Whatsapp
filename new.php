@@ -207,8 +207,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	$ig = mysqli_query($con, "INSERT INTO `general` VALUES ('','MI','$f $h','$ng','$cli','$cas','$tar','GUATEMALA','$bul','$des','$rem','$bul','$pk','$pl','$val','$val','','$tra','$vend','0','0','0','0','0','$imp','$iva','$ti','$fle','$vcc','0','$vcm','0','$impr','$ivar','$tir','$fle','$fle','$impr','$segr','$desc','0','$ven','','','','','','','','','no','no','no','no','','','','','','','','','','','','','','','$obs','','')");
 
-	enviar_sms($telefono, "Te informamos que el paquete está en camino");
-	enviar_whatsapp($telefono, "Te informamos que el paquete está en camino");
+	if (!is_null($telefono)) {
+		if (strlen($telefono) < 11) {
+			$telefono = "502" . $telefono;
+		}
+		enviar_sms($telefono, "Te informamos que el paquete está en camino");
+		enviar_whatsapp($telefono, "Te informamos que el paquete está en camino");
+	}
+
 	if($elec!=''){
 	    /*$cuerpo_m = '
 	       <html>
