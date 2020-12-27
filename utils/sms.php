@@ -1,19 +1,21 @@
 <?php
 
+require_once('../constants.php');
+
 use Twilio\Rest\Client;
 
 $client = new Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
-function send_sms($to_number, $message)
+function enviar_sms($destino, $mensaje)
 {
   try {
     global $client;
 
     $client->messages->create(
-      $to_number,
+      $destino,
       array(
         'from' => TWILIO_SMS_NUMBER,
-        'body' => $message
+        'body' => $mensaje
       )
     );
     return "Mensaje enviado correctamente";

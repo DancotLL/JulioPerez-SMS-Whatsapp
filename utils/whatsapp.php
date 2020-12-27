@@ -1,20 +1,22 @@
 <?php
 
+require_once('../constants.php');
+
 use Twilio\Rest\Client;
 
 $twilio = new Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
-function send_whatsapp_message($to_number, $message)
+function enviar_whatsapp($destino, $mensaje)
 {
   try {
     global $twilio;
 
     $message = $twilio->messages
       ->create(
-        "whatsapp:" . $to_number,
+        "whatsapp:" . $destino,
         array(
           "from" => TWILIO_WHATSAPP_NUMBER,
-          "body" => $message
+          "body" => $mensaje
         )
       );
     return "Mensaje enviado correctamente";

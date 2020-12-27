@@ -127,15 +127,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	$h = date("H:i:s",strtotime($fh));
 	$a = date("A",strtotime($fh));
 
-	$st = mysqli_query($con, "SELECT `tarifa`,`vendedor`,`electronico`,`nombre` FROM `clientes` WHERE `codigo` = '$cas'");
+	$st = mysqli_query($con, "SELECT `tarifa`,`vendedor`,`electronico`,`nombre`,`telefono` FROM `clientes` WHERE `codigo` = '$cas'");
 	$elec = '';
 	$nomcli = '';
+	$telefono = null;
 				while($mt = mysqli_fetch_array($st))
 				{
 					$tar = $mt[0];
 					$vend = $mt[1];
 					$elec = $mt[2];
 					$nomcli = $mt[3];
+					$telefono = $mt[4];
 				}
 
 	//Formulas Real
@@ -205,6 +207,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	$ig = mysqli_query($con, "INSERT INTO `general` VALUES ('','MI','$f $h','$ng','$cli','$cas','$tar','GUATEMALA','$bul','$des','$rem','$bul','$pk','$pl','$val','$val','','$tra','$vend','0','0','0','0','0','$imp','$iva','$ti','$fle','$vcc','0','$vcm','0','$impr','$ivar','$tir','$fle','$fle','$impr','$segr','$desc','0','$ven','','','','','','','','','no','no','no','no','','','','','','','','','','','','','','','$obs','','')");
 
+	enviar_sms($telefono, "Te informamos que el paquete está en camino");
+	enviar_whatsapp($telefono, "Te informamos que el paquete está en camino");
 	if($elec!=''){
 	    /*$cuerpo_m = '
 	       <html>
