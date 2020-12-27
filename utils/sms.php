@@ -7,7 +7,6 @@ $client = new Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 function send_sms($to_number, $message)
 {
   try {
-    return "okkk";
     global $client;
 
     $client->messages->create(
