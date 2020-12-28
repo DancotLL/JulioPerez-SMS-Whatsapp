@@ -1,5 +1,8 @@
 <?php
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
+require_once('../utils/sms.php');
+require_once('../utils/whatsapp.php');
+
 session_start();
 date_default_timezone_set('America/Guatemala');
 
