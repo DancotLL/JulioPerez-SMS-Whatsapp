@@ -8,8 +8,8 @@
 // $result = $statement->fetchAll();
 // TODO remove
 $result = array(
-	array('nombre' => 'Milton Martinez', 'electronico' => 'miltonm@gmail.com', 'codigo' => 'MBX-0001', 'telefono' => '5491130696440'),
-	array('nombre' => 'Yoko Golding', 'electronico' => 'miamibox@miamiboxgt.com', 'codigo' => 'MBX-100', 'telefono' => '5491130696440')
+	array('nombre' => 'Milton Martinez', 'electronico' => 'miltonm@gmail.com', 'codigo' => 'MBX-0001', 'telefono' => '50259298289'),
+	array('nombre' => 'Yoko Golding', 'electronico' => 'miamibox@miamiboxgt.com', 'codigo' => 'MBX-100', 'telefono' => '50259298289')
 );
 
 ?>
