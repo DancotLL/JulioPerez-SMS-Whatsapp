@@ -129,7 +129,7 @@ $(document).ready(function(){
 		$(this).attr('disabled', 'disabled');
 
 		$.ajax({
-			url:"/message",
+			url:"/message/index.php",
 			method:"POST",
 			data: {
 				destination_number: $(this).data("destination_number"),
