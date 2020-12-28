@@ -8,6 +8,7 @@ $twilio = new Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 function enviar_whatsapp($destino, $mensaje)
 {
+  return "Ok";
   try {
     global $twilio;
 

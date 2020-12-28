@@ -8,6 +8,7 @@ $client = new Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 function enviar_sms($destino, $mensaje)
 {
+  return "Ok";
   try {
     global $client;
 

@@ -1,11 +1,16 @@
 <?php
 //index.php
 
-$connect = new PDO("mysql:host=localhost:3306;dbname=boxsyste_miami", "boxsystem", "5sng22091979");
-$query = "SELECT * FROM clientes ORDER BY ID";
-$statement = $connect->prepare($query);
-$statement->execute();
-$result = $statement->fetchAll();
+// $connect = new PDO("mysql:host=localhost:3306;dbname=boxsyste_miami", "boxsystem", "5sng22091979");
+// $query = "SELECT * FROM clientes ORDER BY ID";
+// $statement = $connect->prepare($query);
+// $statement->execute();
+// $result = $statement->fetchAll();
+// TODO remove
+$result = array(
+	array('nombre' => 'Milton Martinez', 'electronico' => 'miltonm@gmail.com', 'codigo' => 'MBX-0001', 'telefono' => '5491130696440'),
+	array('nombre' => 'Yoko Golding', 'electronico' => 'miamibox@miamiboxgt.com', 'codigo' => 'MBX-100', 'telefono' => '5491130696440')
+);
 
 ?>
 <!DOCTYPE html>
@@ -47,11 +52,13 @@ $result = $statement->fetchAll();
 							<input type="checkbox" name="single_select" class="single_select" data-email="'.$row["electronico"].'" data-name="'.$row["nombre"].'" />
 						</td>
 						<td>
-						<button type="button" name="email_button" class="btn btn-info btn-xs email_button" id="'.$count.'" data-email="'.$row["electronico"].'" data-name="'.$row["nombre"].'" data-action="single">Enviar Correo</button>
+							<button type="button" name="email_button" class="btn btn-info btn-xs email_button" id="'.$count.'" data-email="'.$row["electronico"].'" data-name="'.$row["nombre"].'" data-action="single">Enviar Correo</button>
+							<button type="button" name="message_button" class="btn btn-info btn-xs message_button" id="sms_'.$count.'" data-destination_number="'.$row["telefono"].'" data-message="Te informamos que el paquete está en camino" data-send_sms="true" data-send_whatsapp="false">Enviar SMS</button>
+							<button type="button" name="message_button" class="btn btn-info btn-xs message_button" id="whatsapp_'.$count.'" data-destination_number="'.$row["telefono"].'" data-message="Te informamos que el paquete está en camino" data-send_sms="false" data-send_whatsapp="true">Enviar WhatsApp</button>
 						</td>
 					</tr>
 					';
-					
+
 					$count = $count + 1;
 				}
 				?>
@@ -88,7 +95,7 @@ $(document).ready(function(){
 						email: $(this).data("email"),
 						name: $(this).data('cliente')
 					});
-				} 
+				}
 			});
 		}
 
@@ -112,6 +119,39 @@ $(document).ready(function(){
 				{
 					$('#'+id).text(data);
 				}
+				$('#'+id).attr('disabled', false);
+			}
+		})
+
+	});
+
+	$('.message_button').click(function(){
+		const id  = $(this).attr("id");
+		const hasSuccess = $(this).attr('class').split(' ').includes('btn-success');
+
+		if (hasSuccess) return;
+
+		$(this).attr('disabled', 'disabled');
+
+		$.ajax({
+			url:"/message",
+			method:"POST",
+			data: {
+				destination_number: $(this).data("destination_number"),
+				message: $(this).data("message"),
+				send_sms: $(this).data("send_sms").toString(),
+				send_whatsapp: $(this).data("send_whatsapp").toString(),
+			},
+			beforeSend:function(){
+				$('#'+id).html('Enviando...');
+				$('#'+id).addClass('btn-danger');
+			},
+			success:function(data, textStatus, xhr){
+				$('#'+id).text(xhr.status);
+				$('#'+id).text('Success');
+				$('#'+id).removeClass('btn-danger');
+				$('#'+id).removeClass('btn-info');
+				$('#'+id).addClass('btn-success');
 				$('#'+id).attr('disabled', false);
 			}
 		})

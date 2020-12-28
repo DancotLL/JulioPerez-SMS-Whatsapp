@@ -12,9 +12,8 @@ header('Content-Type: application/json');
 
 validate_parameters($xml);
 
-$response = [
-  'sms_result' => enviar_sms($xml->destination_number, $xml->message),
-  'whatsapp_result' => enviar_whatsapp($xml->destination_number, $xml->message)
-];
+$response = array();
+if ($xml->send_sms == "true") $response['sms_result'] = enviar_sms($xml->destination_number, $xml->message);
+if ($xml->send_whatsapp == "true") $response['whatsapp_result'] = enviar_whatsapp($xml->destination_number, $xml->message);
 
 echo json_encode($response);
