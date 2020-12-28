@@ -1,6 +1,7 @@
 <?php
 
 require_once('../constants.php');
+require_once('phone_number.php');
 
 use Twilio\Rest\Client;
 
@@ -10,6 +11,8 @@ function enviar_whatsapp($destino, $mensaje)
 {
   try {
     global $twilio;
+
+    formatear_telefono($destino);
 
     $message = $twilio->messages
       ->create(
