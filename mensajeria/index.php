@@ -1,16 +1,11 @@
 <?php
 //index.php
 
-// $connect = new PDO("mysql:host=localhost:3306;dbname=boxsyste_miami", "boxsystem", "5sng22091979");
-// $query = "SELECT * FROM clientes ORDER BY ID";
-// $statement = $connect->prepare($query);
-// $statement->execute();
-// $result = $statement->fetchAll();
-// TODO remove
-$result = array(
-	array('nombre' => 'Milton Martinez', 'electronico' => 'miltonm@gmail.com', 'codigo' => 'MBX-0001', 'telefono' => '50259298289'),
-	array('nombre' => 'Yoko Golding', 'electronico' => 'miamibox@miamiboxgt.com', 'codigo' => 'MBX-100', 'telefono' => '50259298289')
-);
+$connect = new PDO("mysql:host=localhost:3306;dbname=boxsyste_miami", "boxsystem", "5sng22091979");
+$query = "SELECT * FROM clientes ORDER BY ID";
+$statement = $connect->prepare($query);
+$statement->execute();
+$result = $statement->fetchAll();
 
 ?>
 <!DOCTYPE html>
